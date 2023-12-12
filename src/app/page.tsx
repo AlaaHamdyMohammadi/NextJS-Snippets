@@ -1,5 +1,9 @@
-export default function Home() {
+import { db } from "@/db";
+
+export default async function Home() {
+  const snippets = await db.snippet.findMany();
+
   return (
-    <div>Home Page</div>
+    <div>{snippets.map((snippet) => <div key={snippet.id}>{snippet.title}</div>)}</div>
   );
 }
