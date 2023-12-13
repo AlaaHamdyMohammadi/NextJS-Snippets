@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
 
 export default function SnippetsCreatePage() {
@@ -24,6 +24,8 @@ export default function SnippetsCreatePage() {
     // Redirect the user back to the root route
     redirect("/");
   }
+
+  
 
   return (
     <form action={createSnippet}>
