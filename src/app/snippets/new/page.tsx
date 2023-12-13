@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export default function SnippetsCreatePage() {
