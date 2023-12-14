@@ -11,26 +11,44 @@ export async function createSnippet(
   // This needs to be a server action
   //  "use server";
 
-  return {
-    message: "Title must be longer",
-  };
+  try{
+  //   Check the user's inputs and make sure they're valid
+  const title = formDate.get("title");
+  const code = formDate.get("code");
 
-  // Check the user's inputs and make sure they're valid
-  //   const title = formDate.get("title") as string;
-  //   const code = formDate.get("code") as string;
+  if (typeof title !== "string" || title.length < 3) {
+    return {
+      message: "Title must be longer",
+    };
+  }
+  if (typeof code !== "string" || code.length < 10) {
+    return {
+      message: "Code must be longer",
+    };
+  }
 
-  // Create a new record in the database
-  //   const snippet = await db.snippet.create({
-  //     data: {
-  //       title,
-  //       code,
-  //     },
-  //   });
+  //   Create a new record in the database
+  const snippet = await db.snippet.create({
+    data: {
+      title,
+      code,
+    },
+  });
 
-  //   console.log(snippet);
-
-  // Redirect the user back to the root route
-  //redirect("/");
+  console.log(snippet);
+  }catch(err: unknown){
+    if(err instanceof Error){
+        return {
+            message: err.message,
+        }
+    }else{
+        return {
+          message: 'Something went wrong...',
+        };
+    }
+  }
+  //   Redirect the user back to the root route
+  redirect("/");
 }
 
 /*
